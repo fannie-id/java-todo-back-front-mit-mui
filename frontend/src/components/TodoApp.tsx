@@ -38,24 +38,18 @@ export default function TodoApp() {
     function onSearchTextChange(passedText: string) {
         setSearchText(passedText)
 
-        filterTask()
+
     }
 
-    function filterTask() {
+
         const filteredTasks = todoList.filter((task: Task) => {
-            if (
-                task.id.toUpperCase().includes(searchText.toUpperCase()) ||
+            return task.id.toUpperCase().includes(searchText.toUpperCase()) ||
                 task.status.toString().toUpperCase().includes(searchText.toUpperCase()) ||
-                task.description.toUpperCase().includes(searchText.toUpperCase())
-            ) {
-                return true
-            } else {
-                return false
-            }
+                task.description.toUpperCase().includes(searchText.toUpperCase());
         })
-        setTodoList(filteredTasks)
 
-    }
+
+
 
 
 
@@ -63,7 +57,7 @@ export default function TodoApp() {
     return (<div>
 
             <SearchBar onSearchTextChange={onSearchTextChange}/>
-            <TodoList todoList={todoList} /*changeTodo={}*/ deleteTodo={deleteTodoByID}/>
+            <TodoList todoList={filteredTasks} /*changeTodo={}*/ deleteTodo={deleteTodoByID}/>
 
             <AddTask onClickAddTodo={addNewTodo}/>
 
