@@ -1,10 +1,13 @@
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, useState} from 'react';
+import Button from '@mui/material/Button';
 
 type AddTaskProps = {
     onClickAddTodo(description:string ): void
 }
 
 export default function AddTask(props: AddTaskProps) {
+
+
     const [description, setNewTaskText] = useState<string>("")
 
     function onAddTaskTextChange(event: ChangeEvent<HTMLInputElement>) {
@@ -21,9 +24,8 @@ export default function AddTask(props: AddTaskProps) {
             <input
                 type="text"
                 onChange={onAddTaskTextChange} value={description} />
-
-            <button onClick={addTodo} >
-                Add Task
-            </button>
+            <div>
+                <Button variant="contained">Add Task</Button>
+            </div>
         </div>)
 }
