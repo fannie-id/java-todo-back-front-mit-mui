@@ -1,5 +1,4 @@
 import {Task} from "../model/Task";
-import {TodoStatus} from "../model/TodoStatus";
 
 type TaskProps = {
     task: Task
@@ -7,10 +6,10 @@ type TaskProps = {
 
 export default function TaskFrom(props: TaskProps) {
 
-    function statusIconColor(a:TodoStatus):string{
-        if(a===0){
+    function statusIconColor(a:string):string{
+        if(a==="OPEN"){
             return "OPEN"
-        }else if(a===1){
+        }else if(a==="IN_PROGRESS"){
             return "IN_PROGRESS"
         }else {
             return "DONE"}
@@ -20,15 +19,13 @@ export default function TaskFrom(props: TaskProps) {
 
     return <div className="TaskFrom">
 
-        <h2 className="TaskID">
-            {props.task.id}
-        </h2>
-
         <h3 className="TaskDesc">
+            description:
             {props.task.description}
         </h3>
 
         <h2 className="TaskStatus">
+            status:
             <span className={statusIconColor(props.task.status)}></span>
             {props.task.status}
         </h2>

@@ -1,28 +1,30 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import SearchBar from "./SearchBar";
 import {Task} from "../model/Task";
 import TodoList from "./TodoList";
+import AddTask from "./AddTask";
+import {getAllTodos, postTodo} from "../service/api-service";
 
 export default function TodoApp() {
 
-    const [todolist, setTodoList] = useState<Task[]>([])
+    const [todoList, setTodoList] = useState<Task[]>([])
 
+    useEffect(() => {
+        getAllTodos()
+            .then(todos => setTodoList(todos))
+    }, [])
 
+console.log(todoList)
     const [searchText, setSearchText] = useState<string>("")
 
     function onSearchTextChange(passedText: string) {
         setSearchText(passedText)
-    }
 
-    const [newTaskText, setNewTaskText] = useState<string>("")
-
-    function onAddTaskText(passedText: string) {
-        setSearchText(passedText)
+        filterTask()
     }
 
     function filterTask() {
-        const filteredTasks = todolist.filter((task: Task) => {
-
+        const filteredTasks = todoList.filter((task: Task) => {
             if (
                 task.id.toUpperCase().includes(searchText.toUpperCase()) ||
                 task.status.toString().toUpperCase().includes(searchText.toUpperCase()) ||
@@ -33,31 +35,24 @@ export default function TodoApp() {
             } else {
                 return false
             }
-
         })
         setTodoList(filteredTasks)
 
     }
 
-
-    function onClickAddTodo() {
-        const addedTasks =
-            setTodoList()
+    function addNewTodo(description: string) {
+        postTodo(description)
+            .then(() => getAllTodos())
+            .then(todos => setTodoList(todos))
     }
 
 
     return (<div>
 
             <SearchBar onSearchTextChange={onSearchTextChange}/>
-            <TodoList todoList={todolist}/>
+            <TodoList todoList={todoList}/>
 
-            <form>
-                <input onChange={onAddTaskText}/>
-
-                <button onClick={onClickAddTodo}>
-                    Add Todo
-                </button>
-            </form>
+            <AddTask onClickAddTodo={addNewTodo}/>
 
 
         </div>
