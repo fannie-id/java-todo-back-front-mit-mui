@@ -23,7 +23,7 @@ export default function AddTask(props: AddTaskProps) {
                 onChange={onAddTaskTextChange} value={description} />
 
             <button onClick={addTodo} >
-                AddTodo
+                Add Task
             </button>
         </div>)
 }
