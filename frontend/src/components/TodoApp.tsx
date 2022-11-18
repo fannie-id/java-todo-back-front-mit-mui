@@ -3,7 +3,7 @@ import SearchBar from "./SearchBar";
 import {Task} from "../model/Task";
 import TodoList from "./TodoList";
 import AddTask from "./AddTask";
-import {getAllTodos, postTodo} from "../service/api-service";
+import {deleteTodo, getAllTodos, postTodo} from "../service/api-service";
 
 export default function TodoApp() {
 
@@ -14,7 +14,25 @@ export default function TodoApp() {
             .then(todos => setTodoList(todos))
     }, [])
 
-console.log(todoList)
+    function addNewTodo(description: string) {
+        postTodo(description)
+            .then(() => getAllTodos())
+            .then(todos => setTodoList(todos))
+    }
+
+    function deleteTodoByID(id:string){
+        deleteTodo(id)
+            .then(() => getAllTodos())
+            .then(todos => setTodoList(todos))
+    }
+
+    /*function changeTodo(text:string){
+        putTodo(text)
+            .then(() => getAllTodos())
+            .then(todos => setTodoList(todos))
+    }*/
+
+
     const [searchText, setSearchText] = useState<string>("")
 
     function onSearchTextChange(passedText: string) {
@@ -30,7 +48,6 @@ console.log(todoList)
                 task.status.toString().toUpperCase().includes(searchText.toUpperCase()) ||
                 task.description.toUpperCase().includes(searchText.toUpperCase())
             ) {
-                console.log("gefunden")
                 return true
             } else {
                 return false
@@ -40,17 +57,13 @@ console.log(todoList)
 
     }
 
-    function addNewTodo(description: string) {
-        postTodo(description)
-            .then(() => getAllTodos())
-            .then(todos => setTodoList(todos))
-    }
+
 
 
     return (<div>
 
             <SearchBar onSearchTextChange={onSearchTextChange}/>
-            <TodoList todoList={todoList}/>
+            <TodoList todoList={todoList} /*changeTodo={}*/ deleteTodo={deleteTodoByID}/>
 
             <AddTask onClickAddTodo={addNewTodo}/>
 

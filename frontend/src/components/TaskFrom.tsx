@@ -1,10 +1,12 @@
 import {Task} from "../model/Task";
 
-type TaskProps = {
+type TaskFromProps = {
     task: Task
+    /*changeTodo(todo: Task) :void,*/
+    deleteTodo(id:string): void
 }
 
-export default function TaskFrom(props: TaskProps) {
+export default function TaskFrom (props: TaskFromProps) {
 
     function statusIconColor(a:string):string{
         if(a==="OPEN"){
@@ -15,7 +17,9 @@ export default function TaskFrom(props: TaskProps) {
             return "DONE"}
 
     }
-
+    function deleteTodo(id:string){
+        props.deleteTodo(id)
+    }
 
     return <div className="TaskFrom">
 
@@ -29,6 +33,19 @@ export default function TaskFrom(props: TaskProps) {
             <span className={statusIconColor(props.task.status)}></span>
             {props.task.status}
         </h2>
+
+        <button className="btn-delete"
+                type="button"  onClick={() => deleteTodo(props.task.id)}>
+            delete Task
+        </button>
+
+
+
+
+
+
+
+
 
 
 
