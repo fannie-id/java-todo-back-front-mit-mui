@@ -1,8 +1,8 @@
 import {Task} from "../model/Task";
-import {Box, Grid, Stack, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+
 
 type TaskPreviewProps = {
     task: Task
@@ -26,7 +26,7 @@ export default function TaskCard(props: TaskPreviewProps) {
         props.deleteTodo(id)
     }
 
-    const url:string= "/api/"+props.task.id +"herf={`${props.task.id}`}"
+    //const url:string= "/api/"+props.task.id +"href={`${props.task.id}`}"
 
     return (
         < Box m={2} boxShadow={2}
@@ -40,6 +40,7 @@ export default function TaskCard(props: TaskPreviewProps) {
                  },
              }}
         >
+
 
             <Typography m={2} variant="h4" component="h4">
                 {props.task.description}
@@ -57,7 +58,6 @@ export default function TaskCard(props: TaskPreviewProps) {
             <Button size="small" variant="contained" startIcon={<DeleteIcon/>} onClick={() => deleteTodo(props.task.id)}>
                 Delete Task
             </Button>
-
         </Box>
 
     )

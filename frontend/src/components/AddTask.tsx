@@ -40,6 +40,8 @@ export default function AddTask(props: AddTaskProps) {
                 variant="outlined"
                 onChange={onAddTaskTextChange}
                 value={description}
+                multiline
+                rows={4}
             />
                 <Button variant="contained" size="small" onClick={addTodo}>Add Task</Button>
                 </Stack>
