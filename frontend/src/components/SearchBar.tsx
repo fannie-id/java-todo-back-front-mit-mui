@@ -1,4 +1,5 @@
 import {ChangeEvent} from "react";
+import {Box, TextField} from "@mui/material";
 
 type SearchBarProps = {
     onSearchTextChange(searchText: string): void
@@ -13,14 +14,14 @@ export default function SearchBar(props: SearchBarProps) {
 
 
     return (
-        <div>
-            <form>
-                <input id="search" type="search" pattern=".*\S.*"
-                       required
-                       placeholder="search anything"
-                       onChange={onSearchTextChange}/>
-            </form>
-        </div>
+        <Box mb={2}
+            sx={{
+                width: 500,
+                maxWidth: '100%',
+            }}
+        >
+        <TextField fullWidth id="outlined-basic" placeholder="search task via id, status or description " label="search" variant="standard" onChange={onSearchTextChange} />
+        </Box>
     )
 
 

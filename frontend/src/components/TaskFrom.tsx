@@ -1,4 +1,7 @@
 import {Task} from "../model/Task";
+import {Box, Typography} from "@mui/material";
+import Button from "@mui/material/Button";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 type TaskFromProps = {
     task: Task
@@ -21,25 +24,28 @@ export default function TaskFrom (props: TaskFromProps) {
         props.deleteTodo(id)
     }
 
-    return <div className="TaskFrom">
+    return <Box m={4}
+                sx={{
+                    width: 500,
+                    maxWidth: '100%',
+                }}
 
-        <h3 className="TaskDesc">
-            description:
+        className="TaskFrom">
+
+        <Typography  m={2} variant="h4" component="h4">
             {props.task.description}
-        </h3>
+        </Typography>
 
-        <h2 className="TaskStatus">
+        <Typography  m={2} variant="h5" component="h5">
             status:
             <span className={statusIconColor(props.task.status)}></span>
             {props.task.status}
-        </h2>
-
-        <button className="btn-delete"
-                type="button"  onClick={() => deleteTodo(props.task.id)}>
-            delete Task
-        </button>
+        </Typography>
 
 
+        <Button variant="outlined" startIcon={<DeleteIcon />} onClick={() => deleteTodo(props.task.id)}>
+            Delete Task
+        </Button>
 
 
 
@@ -49,6 +55,9 @@ export default function TaskFrom (props: TaskFromProps) {
 
 
 
-    </div>
+
+
+
+    </Box>
 
 }

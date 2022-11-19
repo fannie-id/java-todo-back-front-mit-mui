@@ -1,8 +1,9 @@
 import {ChangeEvent, useState} from 'react';
 import Button from '@mui/material/Button';
+import {Box, TextField} from "@mui/material";
 
 type AddTaskProps = {
-    onClickAddTodo(description:string ): void
+    onClickAddTodo(description: string): void
 }
 
 export default function AddTask(props: AddTaskProps) {
@@ -16,16 +17,29 @@ export default function AddTask(props: AddTaskProps) {
 
     function addTodo() {
         props.onClickAddTodo(description)
+        setNewTaskText("")
     }
 
     return (
         <div className="AddTaskForm">
+            <Box mt={2}
+                sx={{
+                    width: 500,
+                    maxWidth: '100%',
+                }}
+            >
+            <TextField
+                fullWidth
+                id="outlined-basic"
+                placeholder="Add Task"
+                label="description" variant="outlined"
+                onChange={onAddTaskTextChange}
+                value={description}
+            />
+            </Box>
 
-            <input
-                type="text"
-                onChange={onAddTaskTextChange} value={description} />
-            <div>
-                <Button variant="contained">Add Task</Button>
-            </div>
+            <Box mt={2}>
+                <Button  variant="contained" onClick={addTodo}>Add Task</Button>
+            </Box>
         </div>)
 }
