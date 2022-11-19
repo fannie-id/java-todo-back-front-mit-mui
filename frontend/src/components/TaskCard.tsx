@@ -9,7 +9,7 @@ type TaskFromProps = {
     deleteTodo(id:string): void
 }
 
-export default function TaskFrom (props: TaskFromProps) {
+export default function TaskCard (props: TaskFromProps) {
 
     function statusIconColor(a:string):string{
         if(a==="OPEN"){
