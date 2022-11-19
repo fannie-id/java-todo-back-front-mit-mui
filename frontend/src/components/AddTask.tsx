@@ -10,14 +10,17 @@ export default function AddTask(props: AddTaskProps) {
 
 
     const [description, setNewTaskText] = useState<string>("")
-
+    let isEmpty = true
     function onAddTaskTextChange(event: ChangeEvent<HTMLInputElement>) {
-        setNewTaskText(event.target.value)
+        isEmpty = (event.target.value==="")
+            setNewTaskText(event.target.value)
     }
 
     function addTodo() {
-        props.onClickAddTodo(description)
-        setNewTaskText("")
+        if(isEmpty){
+            props.onClickAddTodo(description)
+            setNewTaskText("")
+        }
     }
 
     return (
@@ -30,7 +33,7 @@ export default function AddTask(props: AddTaskProps) {
             >
             <TextField
                 fullWidth
-                required
+                required={true}
                 label="New Task"
                 id="outlined-required"
                 placeholder="Description"

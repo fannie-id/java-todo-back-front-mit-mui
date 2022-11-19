@@ -64,17 +64,6 @@ export default function TaskCard (props: TaskFromProps) {
             Delete Task
         </Button>
 
-
-
-
-
-
-
-
-
-
-
-
     </Box>
 
 }
