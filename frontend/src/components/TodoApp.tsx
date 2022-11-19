@@ -4,6 +4,7 @@ import {Task} from "../model/Task";
 import TodoList from "./TodoList";
 import AddTask from "./AddTask";
 import {deleteTodo, getAllTodos, postTodo} from "../service/api-service";
+import { Box } from "@mui/material";
 
 export default function TodoApp() {
 
@@ -54,15 +55,13 @@ export default function TodoApp() {
 
 
 
-    return (<div>
+    return (
+            <Box m={6}>
+                <SearchBar onSearchTextChange={onSearchTextChange}/>
+                <TodoList todoList={filteredTasks} /*changeTodo={}*/ deleteTodo={deleteTodoByID}/>
 
-            <SearchBar onSearchTextChange={onSearchTextChange}/>
-            <TodoList todoList={filteredTasks} /*changeTodo={}*/ deleteTodo={deleteTodoByID}/>
-
-            <AddTask onClickAddTodo={addNewTodo}/>
-
-
-        </div>
+                <AddTask onClickAddTodo={addNewTodo}/>
+            </Box>
 
     )
 }

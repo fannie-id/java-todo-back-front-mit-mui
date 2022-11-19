@@ -1,6 +1,6 @@
 import {ChangeEvent, useState} from 'react';
 import Button from '@mui/material/Button';
-import {Box, TextField} from "@mui/material";
+import {Box, Stack, TextField} from "@mui/material";
 
 type AddTaskProps = {
     onClickAddTodo(description: string): void
@@ -24,13 +24,13 @@ export default function AddTask(props: AddTaskProps) {
     }
 
     return (
-        <div className="AddTaskForm">
-            <Box mt={2}
+            <Box mt={4}
                 sx={{
                     width: 500,
                     maxWidth: '100%',
                 }}
             >
+                <Stack spacing={2} direction="row">
             <TextField
                 fullWidth
                 required={true}
@@ -41,10 +41,7 @@ export default function AddTask(props: AddTaskProps) {
                 onChange={onAddTaskTextChange}
                 value={description}
             />
+                <Button variant="contained" size="small" onClick={addTodo}>Add Task</Button>
+                </Stack>
             </Box>
-
-            <Box mt={2}>
-                <Button  variant="contained" onClick={addTodo}>Add Task</Button>
-            </Box>
-        </div>)
-}
+            )}
