@@ -1,5 +1,5 @@
 import {Task} from "../model/Task";
-import {Box, Typography} from "@mui/material";
+import {Box, FormControl, InputLabel, NativeSelect, TextField, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -24,23 +24,40 @@ export default function TaskCard (props: TaskFromProps) {
         props.deleteTodo(id)
     }
 
-    return <Box m={4}
+    return <Box m={4} boxShadow={2}
                 sx={{
-                    width: 500,
-                    maxWidth: '100%',
-                }}
+                    p:2,
+                    width: '45%',
+                    maxWidth: 400,
+                }}>
 
-        className="TaskFrom">
+        <TextField
+            fullWidth
+            required
+            id="outlined-required"
+            label="description"
+            defaultValue={props.task.description}
+        />
 
-        <Typography  m={2} variant="h4" component="h4">
-            {props.task.description}
-        </Typography>
 
-        <Typography  m={2} variant="h5" component="h5">
-            status:
-            <span className={statusIconColor(props.task.status)}></span>
-            {props.task.status}
-        </Typography>
+        <Box mb={4} sx={{ minWidth: 120, pt:2 }}>
+            <FormControl >
+                <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                    status
+                </InputLabel>
+                <NativeSelect
+                    defaultValue={props.task.status}
+                    inputProps={{
+                        name: 'age',
+                        id: 'uncontrolled-native',
+                    }}
+                >
+                    <option value={10}>OPEN</option>
+                    <option value={20}>IN_PROGRESS</option>
+                    <option value={30}>DONE</option>
+                </NativeSelect>
+            </FormControl>
+        </Box>
 
 
         <Button variant="outlined" startIcon={<DeleteIcon />} onClick={() => deleteTodo(props.task.id)}>

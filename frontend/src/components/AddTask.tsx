@@ -30,9 +30,11 @@ export default function AddTask(props: AddTaskProps) {
             >
             <TextField
                 fullWidth
-                id="outlined-basic"
-                placeholder="Add Task"
-                label="description" variant="outlined"
+                required
+                label="New Task"
+                id="outlined-required"
+                placeholder="Description"
+                variant="outlined"
                 onChange={onAddTaskTextChange}
                 value={description}
             />

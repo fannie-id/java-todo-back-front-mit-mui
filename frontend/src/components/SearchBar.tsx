@@ -15,9 +15,9 @@ export default function SearchBar(props: SearchBarProps) {
 
     return (
         <Box mb={2}
+
             sx={{
-                width: 500,
-                maxWidth: '100%',
+                maxWidth: '100%'
             }}
         >
         <TextField fullWidth id="outlined-basic" placeholder="search task via id, status or description " label="search" variant="standard" onChange={onSearchTextChange} />
