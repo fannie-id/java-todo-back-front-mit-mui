@@ -6,7 +6,7 @@ import {Grid, Stack} from "@mui/material";
 
 type TodoListProps={
     todoList: Task[],
-    /*changeTodo: (todo: Task) => void,*/
+    changeTodo: (todo: Task) => void,
     deleteTodo:(id:string)=>void
 }
 
@@ -14,7 +14,7 @@ type TodoListProps={
 export default function TodoList(props:TodoListProps){
 
     const allTasks = props.todoList.map((task)=>
-    <TaskPreview key={task.id} task={task} deleteTodo={props.deleteTodo}/>)
+    <TaskCard key={task.id} task={task} deleteTodo={props.deleteTodo} changeTodo={props.changeTodo}/>)
 
     return <div>
         <Grid container  direction="row" boxShadow={2}>
