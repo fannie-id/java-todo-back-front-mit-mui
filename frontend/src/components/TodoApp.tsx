@@ -3,7 +3,7 @@ import SearchBar from "./SearchBar";
 import {Task} from "../model/Task";
 import TodoList from "./TodoList";
 import AddTask from "./AddTask";
-import {deleteTodo, getAllTodos, postTodo} from "../service/api-service";
+import {deleteTodo, getAllTodos, postTodo, putTodo} from "../service/api-service";
 import {Box, Typography} from "@mui/material";
 
 export default function TodoApp() {
@@ -21,51 +21,42 @@ export default function TodoApp() {
             .then(todos => setTodoList(todos))
     }
 
-    function deleteTodoByID(id:string){
+    function deleteTodoByID(id: string) {
         deleteTodo(id)
             .then(() => getAllTodos())
             .then(todos => setTodoList(todos))
     }
 
-    /*function changeTodo(text:string){
-        putTodo(text)
+    function changeTodo(todo: Task) {
+        console.log(todo)
+        putTodo(todo)
             .then(() => getAllTodos())
             .then(todos => setTodoList(todos))
-    }*/
+    }
 
 
     const [searchText, setSearchText] = useState<string>("")
 
     function onSearchTextChange(passedText: string) {
         setSearchText(passedText)
-
-
     }
 
 
-        const filteredTasks = todoList.filter((task: Task) => {
-            return task.id.toUpperCase().includes(searchText.toUpperCase()) ||
-                task.status.toString().toUpperCase().includes(searchText.toUpperCase()) ||
-                task.description.toUpperCase().includes(searchText.toUpperCase());
-        })
-
-
-
-
-
-
+    const filteredTasks = todoList.filter((task: Task) => {
+        return task.id.toUpperCase().includes(searchText.toUpperCase()) ||
+            task.status.toString().toUpperCase().includes(searchText.toUpperCase()) ||
+            task.description.toUpperCase().includes(searchText.toUpperCase());
+    })
 
     return (
-            <Box m={6}>
-                <Typography mt={6}  variant="h3" component="h4" align="center">
-                    MY Kanban
-                </Typography>
+        <Box m={6}>
+            <Typography mt={6} variant="h3" component="h4" align="center">
+                MY Kanban
+            </Typography>
 
-                <SearchBar onSearchTextChange={onSearchTextChange}/>
-                <TodoList todoList={filteredTasks} /*changeTodo={}*/ deleteTodo={deleteTodoByID}/>
+            <SearchBar onSearchTextChange={onSearchTextChange}/>
+            <TodoList todoList={filteredTasks} changeTodo={changeTodo} deleteTodo={deleteTodoByID}/>
 
-                <AddTask onClickAddTodo={addNewTodo}/>
-            </Box>
-
-    )
+            <AddTask onClickAddTodo={addNewTodo}/>
+        </Box>)
 }

@@ -12,6 +12,6 @@ export const postTodo = (description: string) =>
 export const deleteTodo =(id:string)=>
     axios.delete(`/api/todo/${id}`).then((result)=>console.log(result))
 
-/*
-export const putTodo = (text:Task) =>
-    axios.put('/api/todo/{task.id}',{description: task.description, status: task.status})*/
+
+export const putTodo = (todo:Task) =>
+    axios.put(`/api/todo/${todo.id}`, todo).then((result)=>console.log(result))
