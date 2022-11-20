@@ -1,10 +1,10 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import SearchBar from "./SearchBar";
 import {Task} from "../model/Task";
 import TodoList from "./TodoList";
 import AddTask from "./AddTask";
 import {deleteTodo, getAllTodos, postTodo} from "../service/api-service";
-import { Box } from "@mui/material";
+import {Box, Typography} from "@mui/material";
 
 export default function TodoApp() {
 
@@ -57,6 +57,10 @@ export default function TodoApp() {
 
     return (
             <Box m={6}>
+                <Typography mt={6}  variant="h3" component="h4" align="center">
+                    MY Kanban
+                </Typography>
+
                 <SearchBar onSearchTextChange={onSearchTextChange}/>
                 <TodoList todoList={filteredTasks} /*changeTodo={}*/ deleteTodo={deleteTodoByID}/>
 

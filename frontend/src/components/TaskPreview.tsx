@@ -1,5 +1,5 @@
 import {Task} from "../model/Task";
-import {Box, Typography} from "@mui/material";
+import {Box, easing, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -30,7 +30,6 @@ export default function TaskCard(props: TaskPreviewProps) {
 
     return (
         < Box m={2} boxShadow={2}
-
              sx={{
                  p:2,
                  width: '29%',
