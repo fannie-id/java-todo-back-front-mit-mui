@@ -1,7 +1,6 @@
 import {ChangeEvent} from "react";
 import {Box, Grid, TextField} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
-import {Search} from "@mui/icons-material";
 
 type SearchBarProps = {
     onSearchTextChange(searchText: string): void
@@ -27,7 +26,7 @@ export default function SearchBar(props: SearchBarProps) {
                 </Grid>
                 <Grid item xs={11.5}>
                     <TextField fullWidth id="filled-required"
-                               placeholder="search task via id, status or description "
+                               placeholder="search status or description "
                                label="search"
                                variant="filled"
                                onChange={onSearchTextChange} />

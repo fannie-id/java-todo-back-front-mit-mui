@@ -43,8 +43,7 @@ export default function TodoApp() {
 
 
     const filteredTasks = todoList.filter((task: Task) => {
-        return task.id.toUpperCase().includes(searchText.toUpperCase()) ||
-            task.status.toString().toUpperCase().includes(searchText.toUpperCase()) ||
+        return task.status.toString().toUpperCase().includes(searchText.toUpperCase()) ||
             task.description.toUpperCase().includes(searchText.toUpperCase());
     })
 

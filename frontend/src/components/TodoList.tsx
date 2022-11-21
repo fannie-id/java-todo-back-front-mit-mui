@@ -15,6 +15,7 @@ export default function TodoList(props: TodoListProps) {
 
     const allTasks = props.todoList.map((task) =>
         <TaskCard key={task.id} task={task} deleteTodo={props.deleteTodo} changeTodo={props.changeTodo}/>)
+        //<TaskPreview key={task.id} task={task} deleteTodo={props.deleteTodo}/>)
 
     return (
         <div>

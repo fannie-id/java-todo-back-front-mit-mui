@@ -88,7 +88,7 @@ export default function TaskCard(props: TaskFromProps) {
 
 
             <ButtonGroup>
-                <Button variant="contained" startIcon={<SaveAsIcon/>} onClick={() => changeTodo(changedTodo)} >save Task</Button>
+                <Button variant="contained" startIcon={<SaveAsIcon/>} onClick={() => changeTodo(changedTodo)} >Save change</Button>
                 <Button variant="outlined" startIcon={<DeleteIcon/>} onClick={() => deleteTodo(props.task.id)} >Delete Task</Button>
 
             </ButtonGroup>

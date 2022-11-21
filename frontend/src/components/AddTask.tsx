@@ -43,6 +43,7 @@ export default function AddTask(props: AddTaskProps) {
                 multiline
                 rows={4}
             />
+
                 <Button variant="contained" size="small" onClick={addTodo}>Add Task</Button>
                 </Stack>
             </Box>

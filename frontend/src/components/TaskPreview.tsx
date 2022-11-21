@@ -13,11 +13,11 @@ export default function TaskCard(props: TaskPreviewProps) {
 
     function statusIconColor(a: string): string {
         if (a === "OPEN") {
-            return "b3e5fc"
+            return "#e1f5fe"
         } else if (a === "IN_PROGRESS") {
-            return "#b2dfdb"
+            return "#e0f2f1"
         } else {
-            return "grey"
+            return "#fafafa"
         }
     }
 
@@ -29,6 +29,7 @@ export default function TaskCard(props: TaskPreviewProps) {
 
     return (
         <Box m={2} boxShadow={2}
+             bgcolor={statusIconColor(props.task.status)}
               sx={{
                   p: 2,
                   width: '29%',
@@ -46,7 +47,7 @@ export default function TaskCard(props: TaskPreviewProps) {
                 m={2}
                 variant="h6"
                 component="h6"
-                color={statusIconColor(props.task.status)}
+
             >
                 {props.task.status}
             </Typography>
