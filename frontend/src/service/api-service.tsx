@@ -10,8 +10,8 @@ export const postTodo = (description: string) =>
 
 
 export const deleteTodo =(id:string)=>
-    axios.delete(`/api/todo/${id}`).then((result)=>console.log(result))
+    axios.delete(`/api/todo/${id}`)
 
 
 export const putTodo = (todo:Task) =>
-    axios.put(`/api/todo/${todo.id}`, todo).then((result)=>console.log(result))
+    axios.put(`/api/todo/${todo.id}`, todo)//.then((result)=>console.log(result))

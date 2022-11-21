@@ -10,41 +10,48 @@ export default function AddTask(props: AddTaskProps) {
 
 
     const [description, setNewTaskText] = useState<string>("")
-    let isEmpty = true
-    function onAddTaskTextChange(event: ChangeEvent<HTMLInputElement>) {
-        isEmpty = (event.target.value==="")
-            setNewTaskText(event.target.value)
-    }
+    const [errorMessage, setErrorMessage] = useState("description is empty.");
 
-    function addTodo() {
-        if(isEmpty){
-            props.onClickAddTodo(description)
-            setNewTaskText("")
+    function onAddTaskTextChange(event: ChangeEvent<HTMLInputElement>) {
+        setNewTaskText(event.target.value)
+        if (description.length !== 0) {
+            setErrorMessage("")
         }
     }
 
-    return (
-            <Box mt={4}
-                sx={{
-                    width: 500,
-                    maxWidth: '100%',
-                }}
-            >
-                <Stack spacing={2} direction="row">
-            <TextField
-                fullWidth
-                required={true}
-                label="New Task"
-                id="outlined-required"
-                placeholder="Description"
-                variant="outlined"
-                onChange={onAddTaskTextChange}
-                value={description}
-                multiline
-                rows={4}
-            />
+    function addTodo() {
+        if (description) {
+            props.onClickAddTodo(description)
+        }
+        setNewTaskText("")
+        setErrorMessage("description is empty.")
+    }
 
+
+    return (
+        <Box mt={4}
+             sx={{
+                 width: 500,
+                 maxWidth: '100%',
+             }}
+        >
+            <Stack spacing={2} direction="row">
+                <TextField
+                    error={description.length === 0}
+                    helperText={errorMessage}
+                    fullWidth
+                    required={true}
+                    label="New Task"
+                    id="outlined-required"
+                    placeholder="Description"
+                    variant="outlined"
+                    onChange={onAddTaskTextChange}
+                    value={description}
+                    multiline
+                    rows={4}
+                />
                 <Button variant="contained" size="small" onClick={addTodo}>Add Task</Button>
-                </Stack>
-            </Box>
-            )}
+            </Stack>
+        </Box>
+    )
+}
