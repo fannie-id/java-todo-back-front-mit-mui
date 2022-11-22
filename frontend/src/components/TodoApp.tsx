@@ -1,51 +1,15 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import SearchBar from "./SearchBar";
-import {Task} from "../model/Task";
+
 import TodoList from "./TodoList";
 import AddTask from "./AddTask";
-import {deleteTodo, getAllTodos, postTodo, putTodo} from "../service/api-service";
+
 import {Box, Typography} from "@mui/material";
+import userTasks from "../hooks/useTasks"
 
 export default function TodoApp() {
 
-    const [todoList, setTodoList] = useState<Task[]>([])
-
-    useEffect(() => {
-        getAllTodos()
-            .then(todos => setTodoList(todos))
-    }, [])
-
-    function addNewTodo(description: string) {
-        postTodo(description)
-            .then(() => getAllTodos())
-            .then(todos => setTodoList(todos))
-    }
-
-    function deleteTodoByID(id: string) {
-        deleteTodo(id)
-            .then(() => getAllTodos())
-            .then(todos => setTodoList(todos))
-    }
-
-    function changeTodo(todo: Task) {
-        console.log(todo)
-        putTodo(todo)
-            .then(() => getAllTodos())
-            .then(todos => setTodoList(todos))
-    }
-
-
-    const [searchText, setSearchText] = useState<string>("")
-
-    function onSearchTextChange(passedText: string) {
-        setSearchText(passedText)
-    }
-
-
-    const filteredTasks = todoList.filter((task: Task) => {
-        return task.status.toString().toUpperCase().includes(searchText.toUpperCase()) ||
-            task.description.toUpperCase().includes(searchText.toUpperCase());
-    })
+   const {addNewTodo, deleteTodoByID, changeTodo,onSearchTextChange,filteredTasks} = userTasks()
 
     return (
         <Box m={6}>

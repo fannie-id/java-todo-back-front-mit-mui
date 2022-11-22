@@ -1,6 +1,5 @@
 export type Task = {
-    id:string,
+    id?:string,
     description:string,
     status: string
-        //"OPEN"|"IN_PROGRESS"|"DONE"
 }

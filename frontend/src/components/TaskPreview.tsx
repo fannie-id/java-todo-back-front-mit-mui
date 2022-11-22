@@ -13,7 +13,7 @@ export default function TaskCard(props: TaskPreviewProps) {
 
     function statusIconColor(a: string): string {
         if (a === "OPEN") {
-            return "#e1f5fe"
+            return "#fffde7"
         } else if (a === "IN_PROGRESS") {
             return "#e0f2f1"
         } else {
@@ -21,8 +21,12 @@ export default function TaskCard(props: TaskPreviewProps) {
         }
     }
 
-    function deleteTodo(id: string) {
-        props.deleteTodo(id)
+    function deleteTodo(id: string|undefined) {
+        if(id){
+            props.deleteTodo(id)
+        }else{
+            console.log("dose not existed")
+        }
     }
 
     //href={`${props.task.id}`}

@@ -11,17 +11,23 @@ export default function AddTask(props: AddTaskProps) {
 
     const [description, setNewTaskText] = useState<string>("")
     const [errorMessage, setErrorMessage] = useState("description is empty.");
+    const [errorStatus, setErrorStatus] = useState(false);
 
-    function onAddTaskTextChange(event: ChangeEvent<HTMLInputElement>) {
+    function handleTaskTextChange(event: ChangeEvent<HTMLInputElement>) {
         setNewTaskText(event.target.value)
         if (description.length !== 0) {
             setErrorMessage("")
+            setErrorStatus(false)
+        }else{
+            setErrorMessage("description is empty.")
         }
     }
 
     function addTodo() {
         if (description) {
             props.onClickAddTodo(description)
+        }else{
+            setErrorStatus(true)
         }
         setNewTaskText("")
         setErrorMessage("description is empty.")
@@ -37,7 +43,7 @@ export default function AddTask(props: AddTaskProps) {
         >
             <Stack spacing={2} direction="row">
                 <TextField
-                    error={description.length === 0}
+                    error={errorStatus}
                     helperText={errorMessage}
                     fullWidth
                     required={true}
@@ -45,7 +51,7 @@ export default function AddTask(props: AddTaskProps) {
                     id="outlined-required"
                     placeholder="Description"
                     variant="outlined"
-                    onChange={onAddTaskTextChange}
+                    onChange={handleTaskTextChange}
                     value={description}
                     multiline
                     rows={4}
