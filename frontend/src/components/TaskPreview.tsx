@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import {useNavigate} from "react-router-dom";
 
 
 type TaskPreviewProps = {
@@ -13,6 +14,8 @@ type TaskPreviewProps = {
 }
 
 export default function TaskCard(props: TaskPreviewProps) {
+
+    const navigate =useNavigate()
 
     function statusIconColor(a: string): string {
         if (a === "OPEN") {
@@ -41,12 +44,18 @@ export default function TaskCard(props: TaskPreviewProps) {
         props.nextStage(updateTodo)
     }
 
+    function onDetailsClick(){
+        navigate("/api/todo/"+props.task.id)
+
+    }
+
     //href={`${props.task.id}`}
 
     return (
         <Box m={2}
              boxShadow={2}
              bgcolor={statusIconColor(props.task.status)}
+             onClick={onDetailsClick}
 
               sx={{
                   p: 2,
@@ -57,15 +66,15 @@ export default function TaskCard(props: TaskPreviewProps) {
                   },
               }}
         >
-            <Typography m={2} variant="h4" component="h4">
+            <Typography mb={2} variant="h4" component="h4" >
                 {props.task.description}
             </Typography>
 
+
             <Typography
-                m={2}
+                mb={2}
                 variant="h6"
                 component="h6"
-
             >
                 {props.task.status}
             </Typography>

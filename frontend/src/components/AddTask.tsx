@@ -1,9 +1,10 @@
 import {ChangeEvent, useState} from 'react';
 import Button from '@mui/material/Button';
 import {Box, Stack, TextField} from "@mui/material";
+import {NewTask} from "../model/Task"
 
 type AddTaskProps = {
-    onClickAddTodo(description: string): void
+    onClickAddTodo(newTodo: NewTask): void
 }
 
 export default function AddTask(props: AddTaskProps) {
@@ -25,7 +26,8 @@ export default function AddTask(props: AddTaskProps) {
 
     function addTodo() {
         if (description) {
-            props.onClickAddTodo(description)
+            const newTodo :NewTask={description:description}
+            props.onClickAddTodo(newTodo)
         }else{
             setErrorStatus(true)
         }

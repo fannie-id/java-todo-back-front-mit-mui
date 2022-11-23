@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Task} from "../model/Task";
+import {NewTask, Task} from "../model/Task";
 import {deleteTodo, getAllTodos, postTodo, putTodo} from "../service/api-service";
 /*type UserTodos =
     [(description: string) => void,
@@ -17,8 +17,8 @@ export default function useTodos(){
             .then(todos => setTodoList(todos))
     }, [])
 
-    function addNewTodo(description: string) {
-        postTodo(description)
+    function addNewTodo(newTodo: NewTask) {
+        postTodo(newTodo)
             //.then(() => getAllTodos())
             //.then(todos => setTodoList(todos))
             //aktualisieren todolist mit Spread Operator

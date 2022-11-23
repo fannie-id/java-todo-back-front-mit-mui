@@ -12,6 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import {ChangeEvent} from "react";
 
+
 type TaskFromProps = {
     task: Task
     changeTodo(todo: Task): void
@@ -19,6 +20,7 @@ type TaskFromProps = {
 }
 
 export default function TaskCard(props: TaskFromProps) {
+
 
     function statusIconColor(a: string): string {
         if (a === "OPEN") {
@@ -46,7 +48,7 @@ export default function TaskCard(props: TaskFromProps) {
 
     }
 
-    function handleDeleteTodo(id: string | undefined) {
+    function handleDeleteTodo(id: string|undefined) {
         if (id) {
             props.deleteTodo(id)
         } else {

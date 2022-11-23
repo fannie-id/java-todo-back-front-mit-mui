@@ -5,6 +5,7 @@ import './App.css';
 import TodoApp from "./components/TodoApp";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import NavigationBar from "./components/NavigationBar";
+import TodoDetail from "./components/TodoDetail";
 
 
 function App() {
@@ -17,7 +18,8 @@ function App() {
                 <NavigationBar/>
                 <Routes>
                     <Route path="/" element={<p>Hi</p>}></Route>
-                    <Route path="/todos" element={<TodoApp/>}></Route>
+                    <Route path="/api/todo" element={<TodoApp/>}></Route>
+                    <Route path="/api/todo/:id" element={<TodoDetail/>}></Route>
                 </Routes>
             </BrowserRouter>
 
