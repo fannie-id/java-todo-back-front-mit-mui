@@ -11,16 +11,21 @@ import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import {ChangeEvent} from "react";
+import useTask from "../hooks/useTask";
+import {useParams} from "react-router-dom";
 
 
-type TaskFromProps = {
-    task: Task
-    changeTodo(todo: Task): void
-    deleteTodo(id: string): void
-}
+export default function TaskCard() {
+    const params = useParams()
+    const id:string |undefined = params.id
+    if(!id){
+        return <p>loading</p>
+    }
+    const {todo,deleteTodoByID,changeTodo} = useTask(id)
 
-export default function TaskCard(props: TaskFromProps) {
-
+    if(!id){
+        return (<p>loading</p>)
+    }
 
     function statusIconColor(a: string): string {
         if (a === "OPEN") {
@@ -33,9 +38,9 @@ export default function TaskCard(props: TaskFromProps) {
     }
 
     let changedTodo: Task = {
-        id: props.task.id,
-        description: props.task.description,
-        status: props.task.status
+        id: todo.id,
+        description: todo.description,
+        status: todo.status
     }
     const onDescriptionTextChange = (event: ChangeEvent<HTMLInputElement>) => {
 
@@ -50,21 +55,21 @@ export default function TaskCard(props: TaskFromProps) {
 
     function handleDeleteTodo(id: string|undefined) {
         if (id) {
-            props.deleteTodo(id)
+            deleteTodoByID(id)
         } else {
             console.log("dose not existed")
         }
     }
 
-    function changeTodo(newTodo: Task) {
-        props.changeTodo(newTodo)
+    function handleChangeTask(newTodo: Task) {
+        changeTodo(newTodo)
     }
 
 
     return (
         <Box m={4}
              boxShadow={2}
-             bgcolor={statusIconColor(props.task.status)}
+             bgcolor={statusIconColor(todo.status)}
              sx={{
                  p: 2,
                  width: '45%',
@@ -73,14 +78,14 @@ export default function TaskCard(props: TaskFromProps) {
 
             <TextField
                 fullWidth
-                required ={props.task.status !== "DONE"}
-                id={props.task.status !== "DONE" ? "outlined-required":"outlined-read-only-input"}
+                required ={todo.status !== "DONE"}
+                id={todo.status !== "DONE" ? "outlined-required":"outlined-read-only-input"}
 
                 InputProps={{
-                    readOnly: props.task.status === "DONE",
+                    readOnly: todo.status === "DONE",
                 }}
                 label={"description"}
-                defaultValue={props.task.description}
+                defaultValue={todo.description}
                 onChange={onDescriptionTextChange}
             />
 
@@ -89,9 +94,9 @@ export default function TaskCard(props: TaskFromProps) {
                 <FormControl sx={{ minWidth: 120 }}>
 
                     <Select
-                        defaultValue={props.task.status}
+                        defaultValue={todo.status}
                         onChange={onStatusChange}
-                        readOnly ={props.task.status === "DONE"}
+                        readOnly ={todo.status === "DONE"}
                     >
                         <MenuItem value={"OPEN"}>OPEN</MenuItem>
                         <MenuItem value={"IN_PROGRESS"}>IN_PROGRESS</MenuItem>
@@ -103,11 +108,11 @@ export default function TaskCard(props: TaskFromProps) {
             </Box>
 
 
-            {props.task.status !== "DONE" &&
-                <Button variant="contained" startIcon={<SaveAsIcon/>} onClick={() => changeTodo(changedTodo)}>Save
+            {todo.status !== "DONE" &&
+                <Button variant="contained" startIcon={<SaveAsIcon/>} onClick={() => handleChangeTask(changedTodo)}>Save
                     change</Button>}
-            {props.task.status === "DONE" &&
-                <Button variant="outlined" startIcon={<DeleteIcon/>} onClick={() => handleDeleteTodo(props.task.id)}>Delete
+            {todo.status === "DONE" &&
+                <Button variant="outlined" startIcon={<DeleteIcon/>} onClick={() => handleDeleteTodo(todo.id)}>Delete
                     Task</Button>}
 
 

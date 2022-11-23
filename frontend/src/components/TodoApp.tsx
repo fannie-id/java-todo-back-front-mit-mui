@@ -5,11 +5,11 @@ import TodoList from "./TodoList";
 import AddTask from "./AddTask";
 
 import {Box, Typography} from "@mui/material";
-import userTasks from "../hooks/useTasks"
+import useTodos from "../hooks/useTodos";
 
 export default function TodoApp() {
 
-   const {addNewTodo, deleteTodoByID, changeTodo,onSearchTextChange,filteredTasks,updateTodo} = userTasks()
+   const {addNewTodo, deleteTodoByID, changeTodo,onSearchTextChange,filteredTasks,updateTodo} = useTodos()
 
     return (
         <Box m={6}>
