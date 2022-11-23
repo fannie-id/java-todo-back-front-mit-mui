@@ -3,10 +3,13 @@ import {Box, Typography} from "@mui/material";
 import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
 
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+
 
 type TaskPreviewProps = {
     task: Task
     deleteTodo(id: string): void
+    nextStage(todo: Task):void
 }
 
 export default function TaskCard(props: TaskPreviewProps) {
@@ -21,7 +24,7 @@ export default function TaskCard(props: TaskPreviewProps) {
         }
     }
 
-    function deleteTodo(id: string|undefined) {
+    function handleDeleteTodo(id: string|undefined) {
         if(id){
             props.deleteTodo(id)
         }else{
@@ -29,11 +32,22 @@ export default function TaskCard(props: TaskPreviewProps) {
         }
     }
 
+    function handleNextState(todo:Task) {
+        const updateTodo:Task={
+            id:todo.id,
+            description:todo.description,
+            status:todo.status==="OPEN"?"IN_PROGRESS":"DONE"
+        }
+        props.nextStage(updateTodo)
+    }
+
     //href={`${props.task.id}`}
 
     return (
-        <Box m={2} boxShadow={2}
+        <Box m={2}
+             boxShadow={2}
              bgcolor={statusIconColor(props.task.status)}
+
               sx={{
                   p: 2,
                   width: '29%',
@@ -56,10 +70,11 @@ export default function TaskCard(props: TaskPreviewProps) {
                 {props.task.status}
             </Typography>
 
-            <Button size="small" variant="contained" startIcon={<DeleteIcon/>}
-                    onClick={() => deleteTodo(props.task.id)}>
-                Delete Task
-            </Button>
+            {props.task.status !== "DONE" &&
+                <Button variant="contained" startIcon={<ArrowRightIcon/>} onClick={()=>handleNextState(props.task)}>next</Button>}
+            {props.task.status === "DONE" &&
+                <Button variant="outlined" startIcon={<DeleteIcon/>} onClick={() => handleDeleteTodo(props.task.id)}>Delete
+                    Task</Button>}
         </Box>)
 
 }

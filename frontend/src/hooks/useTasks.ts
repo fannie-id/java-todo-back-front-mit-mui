@@ -59,6 +59,26 @@ export default function useTodos(){
     }
 
 
+    function updateTodo(updateTodo: Task) {
+
+        putTodo(updateTodo)
+            //.then(() => getAllTodos())
+            //.then(todos => setTodoList(todos))
+            .then((updatedTodoResponse) => {
+                setTodoList(((prevTodos) => {
+                    const updatedTodo: Task = updatedTodoResponse.data
+                    return prevTodos.map((todo: Task) => {
+                        if (todo.id === updatedTodo.id) {
+                            return updatedTodo
+                        } else {
+                            return todo
+                        }
+                    })
+                }))
+            })
+    }
+
+
     const [searchText, setSearchText] = useState<string>("")
 
     function onSearchTextChange(passedText: string) {
@@ -72,5 +92,5 @@ export default function useTodos(){
     })
 
 
-    return {addNewTodo, deleteTodoByID, changeTodo, onSearchTextChange, filteredTasks}
+    return {addNewTodo, deleteTodoByID, changeTodo, onSearchTextChange, filteredTasks,updateTodo}
 }

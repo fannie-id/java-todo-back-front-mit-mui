@@ -8,14 +8,15 @@ type TodoListProps = {
     todoList: Task[],
     changeTodo: (todo: Task) => void,
     deleteTodo: (id: string) => void
+    nextStage:(todo:Task) => void
 }
 
 
 export default function TodoList(props: TodoListProps) {
 
     const allTasks = props.todoList.map((task) =>
-        <TaskCard key={task.id} task={task} deleteTodo={props.deleteTodo} changeTodo={props.changeTodo}/>)
-        //<TaskPreview key={task.id} task={task} deleteTodo={props.deleteTodo}/>)
+        //<TaskCard key={task.id} task={task} deleteTodo={props.deleteTodo} changeTodo={props.changeTodo}/>)
+        <TaskPreview key={task.id} task={task} deleteTodo={props.deleteTodo} nextStage={props.nextStage}/>)
 
     return (
         <div>

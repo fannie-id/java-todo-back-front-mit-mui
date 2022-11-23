@@ -9,7 +9,7 @@ import userTasks from "../hooks/useTasks"
 
 export default function TodoApp() {
 
-   const {addNewTodo, deleteTodoByID, changeTodo,onSearchTextChange,filteredTasks} = userTasks()
+   const {addNewTodo, deleteTodoByID, changeTodo,onSearchTextChange,filteredTasks,updateTodo} = userTasks()
 
     return (
         <Box m={6}>
@@ -18,7 +18,7 @@ export default function TodoApp() {
             </Typography>
 
             <SearchBar onSearchTextChange={onSearchTextChange}/>
-            <TodoList todoList={filteredTasks} changeTodo={changeTodo} deleteTodo={deleteTodoByID}/>
+            <TodoList todoList={filteredTasks} changeTodo={changeTodo} deleteTodo={deleteTodoByID} nextStage={updateTodo}/>
 
             <AddTask onClickAddTodo={addNewTodo}/>
         </Box>)
