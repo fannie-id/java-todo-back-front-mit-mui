@@ -27,12 +27,10 @@ export default function TaskCard(props: TaskPreviewProps) {
         }
     }
 
-    function handleDeleteTodo(id: string|undefined) {
-        if(id){
+    function handleDeleteTodo(id: string) {
+
             props.deleteTodo(id)
-        }else{
-            console.log("dose not existed")
-        }
+
     }
 
     function handleNextState(todo:Task) {
@@ -46,10 +44,7 @@ export default function TaskCard(props: TaskPreviewProps) {
 
     function onDetailsClick(){
         navigate("/api/todo/"+props.task.id)
-
     }
-
-    //href={`${props.task.id}`}
 
     return (
         <Box m={2}
