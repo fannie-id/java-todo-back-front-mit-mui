@@ -12,35 +12,27 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SaveAsIcon from '@mui/icons-material/SaveAs';
 import {ChangeEvent} from "react";
 import useTask from "../hooks/useTask";
+import {deleteTodo, putTodo} from "../service/api-service";
 import {useParams} from "react-router-dom";
 
 
 export default function TaskCard() {
     const params = useParams()
-    const id:string |undefined = params.id
-    if(!id){
-        return <p>loading</p>
-    }
-    const {todo,deleteTodoByID,changeTodo} = useTask(id)
+    const id: string | undefined = params.id
 
-    if(!id){
+    if (!id) {
+        return (<p>loading</p>)
+    }
+    const {getTodo} = useTask(id)
+
+    if(!getTodo){
         return (<p>loading</p>)
     }
 
-    function statusIconColor(a: string): string {
-        if (a === "OPEN") {
-            return "#f9fbe7"
-        } else if (a === "IN_PROGRESS") {
-            return "#e0f2f1"
-        } else {
-            return "#fafafa"
-        }
-    }
-
     let changedTodo: Task = {
-        id: todo.id,
-        description: todo.description,
-        status: todo.status
+        id: getTodo.id,
+        description: getTodo.description,
+        status: getTodo.status
     }
     const onDescriptionTextChange = (event: ChangeEvent<HTMLInputElement>) => {
 
@@ -53,23 +45,32 @@ export default function TaskCard() {
 
     }
 
-    function handleDeleteTodo(id: string|undefined) {
-        if (id) {
-            deleteTodoByID(id)
-        } else {
-            console.log("dose not existed")
-        }
+    function handleDeleteTodo(id: string) {
+
+        deleteTodo(id)
+            .catch(console.error)
+
     }
 
     function handleChangeTask(newTodo: Task) {
-        changeTodo(newTodo)
+        putTodo(newTodo)
+            .catch(console.error)
     }
 
+    function statusIconColor(a: string): string {
+        if (a === "OPEN") {
+            return "#f9fbe7"
+        } else if (a === "IN_PROGRESS") {
+            return "#e0f2f1"
+        } else {
+            return "#fafafa"
+        }
+    }
 
     return (
         <Box m={4}
              boxShadow={2}
-             bgcolor={statusIconColor(todo.status)}
+             bgcolor={statusIconColor(changedTodo.status)}
              sx={{
                  p: 2,
                  width: '45%',
@@ -78,25 +79,25 @@ export default function TaskCard() {
 
             <TextField
                 fullWidth
-                required ={todo.status !== "DONE"}
-                id={todo.status !== "DONE" ? "outlined-required":"outlined-read-only-input"}
+                required={changedTodo.status !== "DONE"}
+                id={changedTodo.status !== "DONE" ? "outlined-required" : "outlined-read-only-input"}
 
                 InputProps={{
-                    readOnly: todo.status === "DONE",
+                    readOnly: changedTodo.status === "DONE",
                 }}
                 label={"description"}
-                defaultValue={todo.description}
+                defaultValue={changedTodo.description}
                 onChange={onDescriptionTextChange}
             />
 
             <Box mb={4} sx={{minWidth: 120, pt: 2}}
             >
-                <FormControl sx={{ minWidth: 120 }}>
+                <FormControl sx={{minWidth: 120}}>
 
                     <Select
-                        defaultValue={todo.status}
+                        defaultValue={changedTodo.status}
                         onChange={onStatusChange}
-                        readOnly ={todo.status === "DONE"}
+                        readOnly={changedTodo.status === "DONE"}
                     >
                         <MenuItem value={"OPEN"}>OPEN</MenuItem>
                         <MenuItem value={"IN_PROGRESS"}>IN_PROGRESS</MenuItem>
@@ -108,14 +109,14 @@ export default function TaskCard() {
             </Box>
 
 
-            {todo.status !== "DONE" &&
+            {changedTodo.status !== "DONE" &&
                 <Button variant="contained" startIcon={<SaveAsIcon/>} onClick={() => handleChangeTask(changedTodo)}>Save
                     change</Button>}
-            {todo.status === "DONE" &&
-                <Button variant="outlined" startIcon={<DeleteIcon/>} onClick={() => handleDeleteTodo(todo.id)}>Delete
+            {changedTodo.status === "DONE" &&
+                <Button variant="outlined" startIcon={<DeleteIcon/>} onClick={() => handleDeleteTodo(changedTodo.id)}>Delete
                     Task</Button>}
 
 
         </Box>)
 
-}
+};

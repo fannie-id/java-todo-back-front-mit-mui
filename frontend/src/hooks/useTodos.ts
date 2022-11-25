@@ -26,17 +26,15 @@ export default function useTodos(){
                 setTodoList(prevTodoList => {
                     return [...prevTodoList, newTodoResponse.data]
                 })
-            })
+            }).catch(console.error)
     }
 
     function deleteTodoByID(id: string) {
         deleteTodo(id)
-            //.then(() => getAllTodos())
-            //.then(todos => setTodoList(todos))
             .then(() => {
                 const updateTodoList = todoList.filter((todo: Task) => todo.id !== id)
                 setTodoList(updateTodoList)
-            })
+            }).catch(console.error)
     }
 
     function changeTodo(updatedTodo: Task) {
@@ -55,7 +53,7 @@ export default function useTodos(){
                         }
                     })
                 }))
-            })
+            }).catch(console.error)
     }
 
 
@@ -75,7 +73,7 @@ export default function useTodos(){
                         }
                     })
                 }))
-            })
+            }).catch(console.error)
     }
 
 

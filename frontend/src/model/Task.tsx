@@ -1,7 +1,7 @@
 
 
 export type Task = {
-    id?:string,
+    id:string,
     description:string,
     status:string
 }
