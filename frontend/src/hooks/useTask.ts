@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {Task} from "../model/Task";
 import axios from "axios";
 
-export default function useTask(id: string) {
+export default function useTask(id: string|undefined) {
 
 const emptyTodo :Task ={
     id:"",
@@ -13,7 +13,10 @@ const emptyTodo :Task ={
 
     //nicht endlose laden, nur einmal laden
     useEffect(() => {
+        if(id){
             getTodoById(id)
+        }
+
     }, [])
 
     function getTodoById(id: string) {
@@ -21,6 +24,7 @@ const emptyTodo :Task ={
             .then(response => response.data)
             .then(data => {
                 setGetTodo((data))
+                console.log("serve get:"+data)
             })
             .catch(console.error)
     }

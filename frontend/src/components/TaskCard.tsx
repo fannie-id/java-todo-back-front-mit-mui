@@ -18,10 +18,6 @@ import {useParams} from "react-router-dom";
 
 export default function TaskCard() {
     const {id} = useParams()
-
-    if (!id) {
-        return (<p>loading</p>)
-    }
     const {getTodo} = useTask(id)
 
     if(!getTodo){
@@ -33,6 +29,7 @@ export default function TaskCard() {
         description: getTodo.description,
         status: getTodo.status
     }
+
     const onDescriptionTextChange = (event: ChangeEvent<HTMLInputElement>) => {
 
         changedTodo.description = event.target.value
@@ -45,10 +42,8 @@ export default function TaskCard() {
     }
 
     function handleDeleteTodo(id: string) {
-
         deleteTodo(id)
             .catch(console.error)
-
     }
 
     function handleChangeTask(newTodo: Task) {
@@ -85,7 +80,7 @@ export default function TaskCard() {
                     readOnly: changedTodo.status === "DONE",
                 }}
                 label={"description"}
-                defaultValue={changedTodo.description}
+                value={changedTodo.description}
                 onChange={onDescriptionTextChange}
             />
 
@@ -94,7 +89,7 @@ export default function TaskCard() {
                 <FormControl sx={{minWidth: 120}}>
 
                     <Select
-                        defaultValue={changedTodo.status}
+                        value={changedTodo.status}
                         onChange={onStatusChange}
                         readOnly={changedTodo.status === "DONE"}
                     >
