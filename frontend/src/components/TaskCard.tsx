@@ -17,8 +17,7 @@ import {useParams} from "react-router-dom";
 
 
 export default function TaskCard() {
-    const params = useParams()
-    const id: string | undefined = params.id
+    const {id} = useParams()
 
     if (!id) {
         return (<p>loading</p>)
