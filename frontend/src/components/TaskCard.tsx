@@ -5,7 +5,7 @@ import {
     FormHelperText,
     MenuItem,
     Select, SelectChangeEvent,
-    TextField
+    Input
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -71,16 +71,17 @@ export default function TaskCard() {
                  maxWidth: 400,
              }}>
 
-            <TextField
+            <Input
                 fullWidth
                 required={changedTodo.status !== "DONE"}
                 id={changedTodo.status !== "DONE" ? "outlined-required" : "outlined-read-only-input"}
 
-                InputProps={{
+                inputProps={{
                     readOnly: changedTodo.status === "DONE",
                 }}
-                label={"description"}
+
                 value={changedTodo.description}
+
                 onChange={onDescriptionTextChange}
             />
 
