@@ -3,7 +3,7 @@ import {Task} from "../model/Task";
 import axios from "axios";
 import {deleteTodo, putTodo} from "../service/api-service";
 
-export default function useTask(id: string|undefined) {
+export default function useTask(id: string|undefined, myCallback:(task: Task) => void) {
 
 const emptyTodo :Task ={
     id:"",
@@ -17,14 +17,15 @@ const emptyTodo :Task ={
         if(id){
             getTodoById(id)
         }
-
-    }, [])
+        //eslint-disable-next-line
+    },[])
 
     function getTodoById(id: string) {
         axios.get("/api/todo/" + id)
             .then(response => response.data)
             .then(data => {
                 setGetTodo((data))
+                myCallback(data)
             })
             .catch(console.error)
     }
@@ -40,13 +41,25 @@ const emptyTodo :Task ={
         id:getTodo.id,
         description:description,
         status:getTodo.status}
-    putTodo(changedTodo).then(response => response.data)
+
+     putTodo(changedTodo)
+        .then(response => response.data)
         .then(data => {
             setGetTodo((data))
         }).catch(console.error)
 
-
-
     }
-    return {getTodo,deleteTodoById,changeDescription}
+
+    function changeStatus(status:string){
+        const changedTodo:Task ={
+            id:getTodo.id,
+            description:getTodo.description,
+            status:status}
+        putTodo(changedTodo)
+            .then(response => response.data)
+            .then(data => {
+                setGetTodo((data))
+            }).catch(console.error)
+    }
+    return {getTodo, deleteTodoById, changeDescription, changeStatus}
 }

@@ -16,19 +16,19 @@ import {useNavigate, useParams} from "react-router-dom";
 
 
 export default function TaskCard() {
-    const {id} = useParams()
-    const {getTodo,deleteTodoById,changeDescription} = useTask(id)
-    const [todo, setTodo] = useState<Task>(
-        {
-            id: getTodo.id,
-            description: getTodo.description,
-            status: getTodo.status
-        }
-    )
-const navigate = useNavigate()
-    if (!getTodo) {
-        return (<p>loading</p>)
+    const myCallback = (updatedTask: Task) => {
+        setDescription(updatedTask.description)
     }
+
+    const {id} = useParams()
+    const {getTodo, deleteTodoById, changeDescription, changeStatus} = useTask(id, myCallback)
+
+    const navigate = useNavigate()
+    const [description, setDescription] = useState<string>(getTodo.description)
+    if (!getTodo) {
+        return <p>loading</p>
+    }
+
 
     /*   let changedTodo: Task = {
            id: getTodo.id,
@@ -39,12 +39,14 @@ const navigate = useNavigate()
    */
 
     const onDescriptionTextChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setTodo(prevState => ({...prevState, description: event.target.value}))
+        setDescription(event.target.value)
         //changedTodo.description = event.target.value
     }
 
     const onStatusChange = (event: SelectChangeEvent) => {
-        setTodo(prevState => ({...prevState, status: event.target.value}))
+        //setTodo(prevState => ({...prevState, status: event.target.value}))
+        changeStatus(event.target.value)
+
         //changedTodo.status = event.target.value
 
     }
@@ -55,11 +57,12 @@ const navigate = useNavigate()
 
     }
 
-    function handleChangeTask(description:string) {
+    function handleChangeTask(description: string) {
         changeDescription(description)
+
     }
 
-    function statusIconColor(a: string): string {
+    function statusColor(a: string): string {
         if (a === "OPEN") {
             return "#f9fbe7"
         } else if (a === "IN_PROGRESS") {
@@ -70,31 +73,34 @@ const navigate = useNavigate()
     }
 
     return (
-        <Box m={4}
-             boxShadow={2}
-             bgcolor={statusIconColor(todo.status)}
-             sx={{
-                 p: 2,
-                 width: '45%',
-                 maxWidth: 400,
-             }}>
+        <Box
+            component="form"
+            autoComplete="off"
+            m={4}
+            boxShadow={2}
+            bgcolor={statusColor(getTodo.status)}
+            sx={{
+                p: 2,
+                width: '45%',
+                maxWidth: 400,
+            }}>
 
             <TextField
                 fullWidth
-                required={todo.status !== "DONE"}
-                id={todo.status !== "DONE" ? "outlined-required" : "outlined-read-only-input"}
+                required={getTodo.status !== "DONE"}
+                id={getTodo.status !== "DONE" ? "outlined-required" : "outlined-read-only-input"}
                 inputProps={{
-                    readOnly: todo.status === "DONE",
+                    readOnly: getTodo.status === "DONE",
                 }}
-                value={todo.description}
 
+                value={description}
                 onChange={onDescriptionTextChange}
-
             />
-            {todo.status !== "DONE" &&
+
+            {getTodo.status !== "DONE" &&
                 <Button sx={{
                     mt: 2
-                }} variant="contained" startIcon={<SaveAsIcon/>} onClick={() => handleChangeTask(todo.description)}>Save
+                }} variant="contained" startIcon={<SaveAsIcon/>} onClick={() => handleChangeTask(description)}>Save
                     change</Button>}
 
             <Box mb={4} sx={{minWidth: 120, pt: 2}}
@@ -102,10 +108,10 @@ const navigate = useNavigate()
                 <FormControl sx={{minWidth: 120}}>
 
                     <Select
-
-
+                        value={getTodo.status}
                         onChange={onStatusChange}
-                        readOnly={todo.status === "DONE"}
+                        readOnly={getTodo.status === "DONE"}
+                        native={false}
                     >
                         <MenuItem value={"OPEN"}>OPEN</MenuItem>
                         <MenuItem value={"IN_PROGRESS"}>IN_PROGRESS</MenuItem>
@@ -117,8 +123,7 @@ const navigate = useNavigate()
             </Box>
 
 
-
-            {todo.status === "DONE" &&
+            {getTodo.status === "DONE" &&
                 <Button variant="outlined" startIcon={<DeleteIcon/>} onSubmit={() => handleDeleteTodo(getTodo.id)}>Delete
                     Task</Button>}
 

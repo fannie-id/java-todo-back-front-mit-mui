@@ -35,6 +35,7 @@ export default function TaskCard(props: TaskPreviewProps) {
     }
 
     function onDetailsClick() {
+
         navigate("/api/todo/" + props.task.id)
     }
 
