@@ -40,8 +40,6 @@ export default function useTodos(){
     function changeTodo(updatedTodo: Task) {
         console.log(updatedTodo)
         putTodo(updatedTodo)
-            //.then(() => getAllTodos())
-            //.then(todos => setTodoList(todos))
             .then((updatedTodoResponse) => {
                 setTodoList(((prevTodos) => {
                     const updatedTodo: Task = updatedTodoResponse.data

@@ -29,37 +29,22 @@ export default function TaskCard() {
         return <p>loading</p>
     }
 
-
-    /*   let changedTodo: Task = {
-           id: getTodo.id,
-           description: getTodo.description,
-           status: getTodo.status
-       }
-       setTodo(changedTodo)
-   */
-
     const onDescriptionTextChange = (event: ChangeEvent<HTMLInputElement>) => {
         setDescription(event.target.value)
-        //changedTodo.description = event.target.value
+
     }
 
     const onStatusChange = (event: SelectChangeEvent) => {
-        //setTodo(prevState => ({...prevState, status: event.target.value}))
         changeStatus(event.target.value)
-
-        //changedTodo.status = event.target.value
-
     }
 
     function handleDeleteTodo(id: string) {
         deleteTodoById(id)
         navigate("/api/todo")
-
     }
 
     function handleChangeTask(description: string) {
         changeDescription(description)
-
     }
 
     function statusColor(a: string): string {

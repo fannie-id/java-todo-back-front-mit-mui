@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import {Task} from "../model/Task";
-import axios from "axios";
-import {deleteTodo, putTodo} from "../service/api-service";
+import {deleteTodo, getTodoById, putTodo} from "../service/api-service";
 
 export default function useTask(id: string|undefined, myCallback:(task: Task) => void) {
 
@@ -15,14 +14,13 @@ const emptyTodo :Task ={
     //nicht endlose laden, nur einmal laden
     useEffect(() => {
         if(id){
-            getTodoById(id)
+            getTodoViaId(id)
         }
         //eslint-disable-next-line
     },[])
 
-    function getTodoById(id: string) {
-        axios.get("/api/todo/" + id)
-            .then(response => response.data)
+    function getTodoViaId(id: string) {
+        getTodoById(id)
             .then(data => {
                 setGetTodo((data))
                 myCallback(data)

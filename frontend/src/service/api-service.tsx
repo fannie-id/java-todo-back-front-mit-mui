@@ -5,7 +5,7 @@ export const getAllTodos = () =>
     axios.get('/api/todo').then(response => response.data)
 
 
-export const getById = (id:string) =>
+export const getTodoById = (id:string) =>
     axios.get(`/api/todo/${id}`).then(response => response.data)
 
 export const postTodo = (todo: NewTask) =>
