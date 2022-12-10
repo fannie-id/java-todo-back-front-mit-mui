@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {Task} from "../model/Task";
 import axios from "axios";
+import {deleteTodo, putTodo} from "../service/api-service";
 
 export default function useTask(id: string|undefined) {
 
@@ -24,10 +25,28 @@ const emptyTodo :Task ={
             .then(response => response.data)
             .then(data => {
                 setGetTodo((data))
-                console.log("serve get:"+data)
             })
             .catch(console.error)
     }
 
-    return {getTodo}
+    function deleteTodoById(id:string){
+    deleteTodo(id)
+        .catch(console.error)
+    }
+
+
+    function changeDescription(description:string){
+    const changedTodo:Task ={
+        id:getTodo.id,
+        description:description,
+        status:getTodo.status}
+    putTodo(changedTodo).then(response => response.data)
+        .then(data => {
+            setGetTodo((data))
+        }).catch(console.error)
+
+
+
+    }
+    return {getTodo,deleteTodoById,changeDescription}
 }

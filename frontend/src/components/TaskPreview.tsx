@@ -7,6 +7,7 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import {useNavigate} from "react-router-dom";
 
 
+
 type TaskPreviewProps = {
     task: Task
     deleteTodo(id: string): void
